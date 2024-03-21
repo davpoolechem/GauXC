@@ -1,10 +1,13 @@
 if( GAUXC_ENABLE_GAU2GRID )
+  message("GauXC - gau2grid enabled!")
   if( NOT TARGET gau2grid::gg )
-  
+    message("GauXC - can't find gau2grid target!")
+    
     # First try to find the package if target doesn't exist
     find_package( gau2grid CONFIG QUIET ) 
     
     if( NOT gau2grid_FOUND )
+      message("GauXC - gau2grid not found!")
     
       message( STATUS "Could not find Gau2grid... Building" )
       
@@ -24,6 +27,7 @@ if( GAUXC_ENABLE_GAU2GRID )
         set( MAX_AM 6 CACHE STRING "" )
         set( DISABLE_PRAGMA ON CACHE BOOL "" )
         FetchContent_MakeAvailable( gau2grid )
+        message("GauXC - making gau2grid available!")
         
         if( NOT TARGET gau2grid::gg )
           message( STATUS "Something Went Horribly Wrong With Gau2Grid discovery!" )
