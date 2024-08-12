@@ -7,10 +7,10 @@
  */
 #include <gauxc/grid_factory.hpp>
 
-#include <integratorxx/quadratures/lebedev_laikov.hpp>
-#include <integratorxx/quadratures/muraknowles.hpp>
-#include <integratorxx/quadratures/mhl.hpp>
-#include <integratorxx/quadratures/treutlerahlrichs.hpp>
+#include <integratorxx/quadratures/s2/lebedev_laikov.hpp>
+#include <integratorxx/quadratures/radial/muraknowles.hpp>
+#include <integratorxx/quadratures/radial/mhl.hpp>
+#include <integratorxx/quadratures/radial/treutlerahlrichs.hpp>
 #include <integratorxx/composite_quadratures/spherical_quadrature.hpp>
 #include <gauxc/exceptions.hpp>
 
@@ -145,17 +145,20 @@ PrunedAtomicGridSpecification robust_psi4_pruning_scheme(
 
   // Look up order
   // XXX: THIS ONLY WORKS FOR LEBEDEV
-  using namespace IntegratorXX::detail::lebedev;
+  //using namespace IntegratorXX::detail::lebedev;
+  using angular_type = IntegratorXX::LebedevLaikov<double>; 
+  using traits = IntegratorXX::quadrature_traits<angular_type>;
+
   const auto asz = unp.angular_size.get();
-  const auto base_order = algebraic_order_by_npts(asz);
+  const auto base_order = traits::algebraic_order_by_npts(asz);
   if( base_order < 0 ) GAUXC_GENERIC_EXCEPTION("Invalid Base Grid");
 
   const auto med_order = 
-    next_algebraic_order(base_order > 6 ? base_order-6 : base_order);
+    traits::next_algebraic_order(base_order > 6 ? base_order-6 : base_order);
   const auto low_order = 7;
 
-  AngularSize med_sz(npts_by_algebraic_order(med_order));
-  AngularSize low_sz(npts_by_algebraic_order(low_order));
+  AngularSize med_sz(traits::npts_by_algebraic_order(med_order));
+  AngularSize low_sz(traits::npts_by_algebraic_order(low_order));
 
   // Create Pruning Regions
   const size_t rsz = unp.radial_size.get();
@@ -183,9 +186,12 @@ PrunedAtomicGridSpecification treutler_pruning_scheme(
 
   // Look up order
   // XXX: THIS ONLY WORKS FOR LEBEDEV
-  using namespace IntegratorXX::detail::lebedev;
-  AngularSize med_sz(npts_by_algebraic_order(med_order));
-  AngularSize low_sz(npts_by_algebraic_order(low_order));
+  //using namespace IntegratorXX::detail::lebedev;
+  using angular_type = IntegratorXX::LebedevLaikov<double>; 
+  using traits = IntegratorXX::quadrature_traits<angular_type>;
+  
+  AngularSize med_sz(traits::npts_by_algebraic_order(med_order));
+  AngularSize low_sz(traits::npts_by_algebraic_order(low_order));
 
   // Create Pruning Regions
   const size_t rsz = unp.radial_size.get();

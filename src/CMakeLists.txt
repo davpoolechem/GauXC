@@ -73,6 +73,7 @@ endif()
 if( GAUXC_CXX_HAS_WSHADOW )
   target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Wshadow> )
 endif()
+#target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -pedantic-errors> )
 
 target_link_libraries( gauxc PUBLIC 
   ExchCXX::ExchCXX 

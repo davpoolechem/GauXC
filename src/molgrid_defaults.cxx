@@ -7,7 +7,7 @@
  */
 #include <gauxc/molgrid/defaults.hpp>
 #include <gauxc/exceptions.hpp>
-#include <integratorxx/quadratures/lebedev_laikov.hpp>
+#include <integratorxx/quadratures/s2/lebedev_laikov.hpp>
 
 namespace GauXC {
 
