@@ -253,7 +253,9 @@ namespace XCPU {
 // Scalar SIMD Emulation
 #else
 
-  #warning "Warning: ISA Not Specified: Using Scalar Code"
+  #ifndef GAUXC_PEDANTIC_BUILD
+    #warning "Warning: ISA Not Specified: Using Scalar Code"
+  #endif
 
   #define SIMD_TYPE double
   

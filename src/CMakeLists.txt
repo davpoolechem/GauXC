@@ -51,6 +51,7 @@ include( CheckCXXCompilerFlag )
 check_cxx_compiler_flag( -Wall              GAUXC_CXX_HAS_WALL              )
 check_cxx_compiler_flag( -Wextra            GAUXC_CXX_HAS_WEXTRA            )
 check_cxx_compiler_flag( -Wpedantic         GAUXC_CXX_HAS_WPEDANTIC         )
+check_cxx_compiler_flag( -pedantic-errors   GAUXC_CXX_HAS_PEDANTIC_ERRORS   )
 check_cxx_compiler_flag( -Wnon-virtual-dtor GAUXC_CXX_HAS_WNON_VIRTUAL_DTOR )
 check_cxx_compiler_flag( -Wshadow           GAUXC_CXX_HAS_WSHADOW           )
 
@@ -66,6 +67,10 @@ if( GAUXC_CXX_HAS_WPEDANTIC )
   target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Wpedantic> )
 endif()
 
+if( GAUXC_CXX_HAS_PEDANTIC_ERRORS )
+  target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -pedantic-errors> )
+endif()
+
 if( GAUXC_CXX_HAS_WNON_VIRTUAL_DTOR )
   target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Wnon-virtual-dtor -Werror=non-virtual-dtor> )
 endif()
@@ -73,7 +78,6 @@ endif()
 if( GAUXC_CXX_HAS_WSHADOW )
   target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -Wshadow> )
 endif()
-#target_compile_options( gauxc PRIVATE $<$<COMPILE_LANGUAGE:CXX>: -pedantic-errors> )
 
 target_link_libraries( gauxc PUBLIC 
   ExchCXX::ExchCXX 

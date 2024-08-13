@@ -5,6 +5,7 @@
 #
 # See LICENSE.txt for details
 #
+
 set( GAUXC_OBARA_SAIKA_HOST_SRC
      src/integral_0.cxx
      src/integral_1.cxx
@@ -30,6 +31,14 @@ set( GAUXC_OBARA_SAIKA_HOST_SRC
      src/chebyshev_boys_computation.cxx
 )
 target_sources( gauxc PRIVATE ${GAUXC_OBARA_SAIKA_HOST_SRC} )
+
+if(${GAUXC_CXX_HAS_PEDANTIC_ERRORS}) 
+  target_compile_definitions(gauxc
+    PRIVATE
+      GAUXC_PEDANTIC_BUILD 
+    )
+endif()
+
 target_include_directories( gauxc PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
 )
