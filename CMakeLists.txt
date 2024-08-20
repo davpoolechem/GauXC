@@ -24,6 +24,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 endif()
 
+message( FATAL_ERROR "Break due to me!")
 
 # GauXC Options
 option( GAUXC_ENABLE_HOST       "Enable Host Integrator"      ON  )
@@ -37,10 +38,6 @@ option( GAUXC_ENABLE_HDF5       "Enable HDF5 Bindings"        ON  )
 option( GAUXC_USE_FAST_RSQRT    "Enable Fast RSQRT"           OFF )
 option( GAUXC_BLAS_PREFER_ILP64 "Prefer ILP64 for host BLAS"  OFF )
 option( GAUXC_LINK_CUDA_STATIC  "Link GauXC with static CUDA libs"  OFF )
-
-if(NOT ${GAUXC_BLAS_PREFER_ILP64})
-  message( FATAL_ERROR "Break due to ILP64 issues! GAUXC_BLAS_PREFER_ILP64: ${GAUXC_BLAS_PREFER_ILP64}")
-endif()
 
 include(CMakeDependentOption)
 cmake_dependent_option( GAUXC_ENABLE_MAGMA    
