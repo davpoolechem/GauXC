@@ -24,7 +24,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
   endif()
 endif()
 
-message( FATAL_ERROR "Break due to me!")
+
 
 # GauXC Options
 option( GAUXC_ENABLE_HOST       "Enable Host Integrator"      ON  )
